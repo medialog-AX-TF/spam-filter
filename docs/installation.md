@@ -106,7 +106,7 @@ LOG_PATH=/var/log/spamfilter
 
 # 스팸 필터 설정
 SPAM_THRESHOLD=0.7
-MAX_MESSAGES_PER_SECOND=1000
+MAX_MESSAGES_PER_SECOND=1000  # 1000 TPS 성능 요구사항을 만족하기 위한 설정
 ```
 
 ### 3.3 Docker Compose를 이용한 설치
@@ -145,8 +145,8 @@ security:
 
 rate_limiting:
   enabled: true
-  max_requests: 1000
-  time_window: 60  # 초
+  max_requests: 1000  # 1000 TPS 성능 요구사항을 만족하기 위한 설정
+  time_window: 1  # 초
 ```
 
 ### 4.3 로깅 및 모니터링 설정
