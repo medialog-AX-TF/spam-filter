@@ -19,7 +19,7 @@
 
 ### 1.2 소프트웨어 요구사항
 - **운영체제**: Ubuntu 20.04 LTS 이상 또는 CentOS 8 이상
-- **컨테이너 플랫폼**: Docker 20.10 이상, Kubernetes 1.20 이상
+- **컨테이너 플랫폼**: Docker 20.10 이상
 - **데이터베이스**: PostgreSQL 13 이상
 - **웹 서버**: Nginx 1.18 이상
 - **메시지 큐**: RabbitMQ 3.8 이상 또는 Kafka 2.8 이상
@@ -54,21 +54,7 @@ sudo systemctl enable docker
 sudo usermod -aG docker $USER
 ```
 
-### 2.3 Kubernetes 설치 (선택사항)
-```bash
-# Kubernetes 설치 (minikube)
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube
-
-# kubectl 설치
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-
-# minikube 시작
-minikube start --driver=docker
-```
-
-### 2.4 데이터베이스 설치 (독립 실행 시)
+### 2.3 데이터베이스 설치 (독립 실행 시)
 ```bash
 # PostgreSQL 설치
 sudo apt install -y postgresql postgresql-contrib
@@ -128,15 +114,6 @@ MAX_MESSAGES_PER_SECOND=1000
 # Docker Compose로 시스템 빌드 및 실행
 docker-compose build
 docker-compose up -d
-```
-
-### 3.4 Kubernetes를 이용한 설치 (선택사항)
-```bash
-# Kubernetes 설정 파일 적용
-kubectl apply -f kubernetes/
-
-# 배포 상태 확인
-kubectl get pods
 ```
 
 ## 4. 설정 방법
@@ -212,25 +189,6 @@ docker-compose down
 docker-compose restart
 ```
 
-### 5.2 Kubernetes를 이용한 시작 및 중지 (선택사항)
-```bash
-# 시스템 시작 (이미 적용된 경우 필요 없음)
-kubectl apply -f kubernetes/
-
-# 시스템 상태 확인
-kubectl get pods
-kubectl get services
-
-# 시스템 로그 확인
-kubectl logs -f deployment/spamfilter-api
-
-# 시스템 중지
-kubectl delete -f kubernetes/
-
-# 특정 서비스 재시작
-kubectl rollout restart deployment/spamfilter-api
-```
-
 ## 6. 문제 해결
 
 ### 6.1 일반적인 문제 해결
@@ -245,9 +203,6 @@ docker-compose logs -f
 
 # 특정 서비스 로그 확인
 docker-compose logs -f api
-
-# Kubernetes 로그 확인
-kubectl logs -f deployment/spamfilter-api
 ```
 
 ### 6.3 시스템 상태 확인
@@ -257,9 +212,6 @@ docker ps
 
 # Docker Compose 서비스 상태 확인
 docker-compose ps
-
-# Kubernetes 파드 상태 확인
-kubectl get pods
 ```
 
 ## 7. 업그레이드 방법
@@ -277,29 +229,10 @@ docker-compose down
 docker-compose up -d
 ```
 
-### 7.2 Kubernetes를 이용한 업그레이드 (선택사항)
-```bash
-# 최신 소스코드 다운로드
-git pull
-
-# 이미지 재빌드 및 푸시
-docker build -t medialog-ax-tf/spamfilter:latest .
-docker push medialog-ax-tf/spamfilter:latest
-
-# 배포 업데이트
-kubectl apply -f kubernetes/
-
-# 롤아웃 상태 확인
-kubectl rollout status deployment/spamfilter-api
-```
-
-### 7.3 데이터베이스 마이그레이션
+### 7.2 데이터베이스 마이그레이션
 ```bash
 # Docker Compose를 이용한 마이그레이션
 docker-compose run --rm api python manage.py migrate
-
-# Kubernetes를 이용한 마이그레이션
-kubectl exec -it $(kubectl get pod -l app=spamfilter-api -o jsonpath="{.items[0].metadata.name}") -- python manage.py migrate
 ```
 
 ## 8. 추가 정보

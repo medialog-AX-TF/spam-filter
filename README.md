@@ -30,7 +30,7 @@
 - 데이터베이스: PostgreSQL
 - 머신러닝: TensorFlow, scikit-learn
 - 프론트엔드: React, TypeScript
-- 인프라: Docker, Kubernetes
+- 인프라: Docker
 
 ## 형상관리
 본 프로젝트의 소스코드는 GitHub에서 관리됩니다: https://github.com/medialog-AX-TF/spam-filter
