@@ -1,0 +1,52 @@
+{
+  "total_samples": 100,
+  "null_count": "0",
+  "empty_count": "0",
+  "text_length": {
+    "mean": 37.71,
+    "std": 10.990625022437914,
+    "min": "19",
+    "max": "64",
+    "median": 34.0
+  },
+  "word_count": {
+    "mean": 7.98,
+    "std": 1.6451950239004087,
+    "min": "5",
+    "max": "13",
+    "median": 8.0
+  },
+  "pattern_counts": {
+    "url_count": "20",
+    "phone_count": "10",
+    "email_count": "0"
+  },
+  "label_counts": {
+    "0": 70,
+    "1": 30
+  },
+  "text_length_by_label": {
+    "0": {
+      "mean": 32.15714285714286,
+      "std": 7.451555064404128,
+      "median": 30.0
+    },
+    "1": {
+      "mean": 50.666666666666664,
+      "std": 5.671059825132326,
+      "median": 50.0
+    }
+  },
+  "pattern_by_label": {
+    "0": {
+      "url_ratio": 0.0,
+      "phone_ratio": 0.0,
+      "email_ratio": 0.0
+    },
+    "1": {
+      "url_ratio": 0.6666666666666666,
+      "phone_ratio": 0.3333333333333333,
+      "email_ratio": 0.0
+    }
+  }
+}
